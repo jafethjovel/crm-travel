@@ -1,0 +1,46 @@
+/* css/reportes.css */
+.reporte-card {
+    transition: transform 0.2s;
+}
+
+.reporte-card:hover {
+    transform: translateY(-2px);
+}
+
+.chart-container {
+    position: relative;
+    margin: auto;
+}
+
+.estadistica-rapida {
+    border-left: 4px solid #3498db;
+    padding-left: 15px;
+}
+
+.estadistica-rapida.success {
+    border-left-color: #28a745;
+}
+
+.estadistica-rapida.warning {
+    border-left-color: #ffc107;
+}
+
+.estadistica-rapida.danger {
+    border-left-color: #dc3545;
+}
+
+@media print {
+    .btn, .sidebar, .navbar {
+        display: none !important;
+    }
+    
+    .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    
+    .card {
+        border: 1px solid #ddd !important;
+        break-inside: avoid;
+    }
+}

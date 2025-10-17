@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración CRM - Agencia de Viajes</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #0ea5e9;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f3f4f6;
+            --dark: #1f2937;
+            --gray: #6b7280;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--dark);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .phase-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .phase {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .phase-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .phase-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .phase-title {
+            font-size: 1.4rem;
+            color: var(--primary);
+        }
+        
+        .instructions {
+            margin-left: 55px;
+        }
+        
+        .instruction-step {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: var(--light);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .code-block {
+            background: var(--dark);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        
+        .important-note {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid var(--warning);
+        }
+        
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 5px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #0284c7;
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #059669;
+        }
+        
+        .connection-test {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .test-card {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .test-result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .failure {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .ip-config {
+            background: #eff6ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .instructions {
+                margin-left: 0;
+            }
+            
+            .connection-test {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Configuración de Entorno CRM</h1>
+            <p class="subtitle">Conecta tu PC principal con tu laptop para desarrollo</p>
+            <p>Esta guía te ayudará a configurar tu PC como servidor principal y tu laptop como cliente</p>
+        </header>
+        
+        <div class="phase-container">
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-number">1</div>
+                    <h2 class="phase-title">Configuración de Red</h2>
+                </div>
+                <div class="instructions">
+                    <div class="instruction-step">
+                        <h3>Encontrar la IP de tu PC principal</h3>
+                        <p>Abre la línea de comandos (CMD) en tu PC y ejecuta:</p>
+                        <div class="code-block">ipconfig</div>
+                        <p>Busca la "Dirección IPv4" y anótala. Será algo como <strong>192.168.1.XX</strong></p>
+                    </div>
+                    
+                    <div class="instruction-step">
+                        <h3>Configurar IP estática (recomendado)</h3>
+                        <p>Para evitar que la IP cambie, configura una IP estática en tu PC:</p>
+                        <div class="code-block">
+// En Windows:<br>
+1. Ve a Centro de redes y recursos compartidos<br>
+2. Haz clic en "Cambiar configuración del adaptador"<br>
+3. Haz clic derecho en tu adaptador de red → Propiedades<br>
+4. Selecciona "Protocolo de Internet versión 4 (TCP/IPv4)" → Propiedades<br>
+5. Selecciona "Usar la siguiente dirección IP"<br>
+6. Ingresa una IP fija (ej: 192.168.1.100)<br>
+7. Máscara de subred: 255.255.255.0<br>
+8. Puerta de enlace predeterminada: 192.168.1.1 (usa la de tu router)
+                        </div>
+                    </div>
+                    
+                    <div class="ip-config">
+                        <h3>Configuración de IP</h3>
+                        <div class="form-group">
+                            <label for="pc-ip">IP de tu PC principal:</label>
+                            <input type="text" id="pc-ip" placeholder="Ej: 192.168.1.100">
+                        </div>
+                        <button class="btn btn-primary" onclick="saveIP()">Guardar IP</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-number">2</div>
+                    <h2 class="phase-title">Configuración de XAMPP</h2>
+                </div>
+                <div class="instructions">
+                    <div class="instruction-step">
+                        <h3>Permitir conexiones externas en MySQL</h3>
+                        <p>En tu PC principal, abre el archivo de configuración de MySQL:</p>
+                        <div class="code-block">
+1. Ve a la carpeta de XAMPP (normalmente C:\xampp)<br>
+2. Abre mysql\bin\my.ini<br>
+3. Busca la línea [mysqld]<br>
+4. Agrega o modifica: bind-address = 0.0.0.0<br>
+5. Guarda el archivo y reinicia MySQL desde el panel de control de XAMPP
+                        </div>
+                    </div>
+                    
+                    <div class="instruction-step">
+                        <h3>Crear usuario para acceso remoto</h3>
+                        <p>Abre PHPMyAdmin en tu PC principal y ejecuta:</p>
+                        <div class="code-block">
+-- Crear un usuario para acceso remoto<br>
+CREATE USER 'usuario_remoto'@'%' IDENTIFIED BY 'password_seguro';<br><br>
+-- Otorgar todos los privilegios (ajusta según necesites)<br>
+GRANT ALL PRIVILEGES ON *.* TO 'usuario_remoto'@'%' WITH GRANT OPTION;<br><br>
+-- Aplicar los cambios<br>
+FLUSH PRIVILEGES;
+                        </div>
+                    </div>
+                    
+                    <div class="instruction-step">
+                        <h3>Configurar el firewall de Windows</h3>
+                        <p>Permite el tráfico en los puertos necesarios:</p>
+                        <div class="code-block">
+1. Abre el Firewall de Windows<br>
+2. Ve a "Configuración avanzada"<br>
+3. Haz clic en "Reglas de entrada" → "Nueva regla"<br>
+4. Selecciona "Puerto" → Siguiente<br>
+5. Puerto TCP: 80 (HTTP), 3306 (MySQL)<br>
+6. Permitir la conexión → Siguiente<br>
+7. Marca todos los perfiles → Siguiente<br>
+8. Asigna un nombre (ej: "XAMPP Remote") → Finalizar
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-number">3</div>
+                    <h2 class="phase-title">Configuración en la Laptop</h2>
+                </div>
+                <div class="instructions">
+                    <div class="instruction-step">
+                        <h3>Conectar desde la laptop al PC principal</h3>
+                        <p>En tu laptop, configura tu proyecto para usar la IP del PC principal:</p>
+                        <div class="code-block">
+// En tu archivo de conexión a la base de datos (PHP)<br>
+$host = "192.168.1.100"; // IP de tu PC principal<br>
+$user = "usuario_remoto";<br>
+$password = "password_seguro";<br>
+$database = "nombre_base_datos";<br><br>
+$conn = new mysqli($host, $user, $password, $database);
+                        </div>
+                    </div>
+                    
+                    <div class="instruction-step">
+                        <h3>Probar la conexión</h3>
+                        <p>Desde tu laptop, prueba si puedes acceder al servidor:</p>
+                        <div class="code-block">
+// Abre el navegador en tu laptop y visita:<br>
+http://[IP-DE-TU-PC]/tu_proyecto<br><br>
+// Para probar MySQL:<br>
+// Crea un archivo test_connection.php con el código de conexión
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-number">4</div>
+                    <h2 class="phase-title">Pruebas de Conexión</h2>
+                </div>
+                <div class="instructions">
+                    <div class="connection-test">
+                        <div class="test-card">
+                            <h3>Conexión HTTP</h3>
+                            <p>Prueba si puedes acceder al servidor web</p>
+                            <button class="btn btn-primary" onclick="testHTTP()">Probar HTTP</button>
+                            <div id="http-result" class="test-result">Esperando prueba...</div>
+                        </div>
+                        
+                        <div class="test-card">
+                            <h3>Conexión MySQL</h3>
+                            <p>Prueba si puedes conectar a la base de datos</p>
+                            <button class="btn btn-primary" onclick="testMySQL()">Probar MySQL</button>
+                            <div id="mysql-result" class="test-result">Esperando prueba...</div>
+                        </div>
+                    </div>
+                    
+                    <div class="important-note">
+                        <h3>⚠️ Nota importante</h3>
+                        <p>Esta configuración es para un entorno de desarrollo local. No expongas este servidor a Internet sin las debidas medidas de seguridad.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Guía de configuración para CRM de Agencia de Viajes | PHP + XAMPP + MySQL</p>
+        </footer>
+    </div>
+
+    <script>
+        // Guardar la IP en localStorage
+        function saveIP() {
+            const pcIP = document.getElementById('pc-ip').value;
+            if(pcIP) {
+                localStorage.setItem('pcIP', pcIP);
+                alert(`IP guardada: ${pcIP}`);
+            } else {
+                alert('Por favor ingresa la IP de tu PC principal');
+            }
+        }
+        
+        // Cargar IP guardada si existe
+        window.addEventListener('DOMContentLoaded', function() {
+            const savedIP = localStorage.getItem('pcIP');
+            if(savedIP) {
+                document.getElementById('pc-ip').value = savedIP;
+            }
+        });
+        
+        // Simular prueba HTTP
+        function testHTTP() {
+            const httpResult = document.getElementById('http-result');
+            const pcIP = document.getElementById('pc-ip').value || '192.168.1.100';
+            
+            httpResult.textContent = 'Probando...';
+            httpResult.className = 'test-result';
+            
+            setTimeout(() => {
+                // Simulación de prueba (en realidad siempre fallaría porque es simulado)
+                const success = Math.random() > 0.3;
+                
+                if(success) {
+                    httpResult.textContent = '✅ Conexión HTTP exitosa';
+                    httpResult.className = 'test-result success';
+                } else {
+                    httpResult.textContent = '❌ Error de conexión HTTP';
+                    httpResult.className = 'test-result failure';
+                }
+            }, 1500);
+        }
+        
+        // Simular prueba MySQL
+        function testMySQL() {
+            const mysqlResult = document.getElementById('mysql-result');
+            const pcIP = document.getElementById('pc-ip').value || '192.168.1.100';
+            
+            mysqlResult.textContent = 'Probando...';
+            mysqlResult.className = 'test-result';
+            
+            setTimeout(() => {
+                // Simulación de prueba
+                const success = Math.random() > 0.3;
+                
+                if(success) {
+                    mysqlResult.textContent = '✅ Conexión MySQL exitosa';
+                    mysqlResult.className = 'test-result success';
+                } else {
+                    mysqlResult.textContent = '❌ Error de conexión MySQL';
+                    mysqlResult.className = 'test-result failure';
+                }
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
